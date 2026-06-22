@@ -1,10 +1,8 @@
-# Spike — MCP Resource Template for GeoJSON `nearPoint` (Memo 100, PRD-013, F5)
+# GeoJSON `nearPoint` Resource-Template — Design Note
 
 | Field | Value |
 |-------|-------|
-| Memo | 100 (REV-07) — Overpass Geo-Eintrittspunkt |
-| PRD | PRD-013 — MCP Resource-Template Spike (F5) |
-| Type | Spike (time-boxed feasibility study, two-branched decision gate) |
+| Type | Feasibility study (time-boxed, two-branched decision gate) |
 | Probe target | GeoJSON default method `nearPoint( { lat, lon, radiusMeters, limit } )` |
 | Date | 2026-06-03 |
 
@@ -19,10 +17,9 @@ FlowMCP specification define a Resource-Template primitive with parameters?
 
 ---
 
-## Feasibility checklist (fixed BEFORE the verdict)
+## Feasibility checklist (fixed before the conclusion)
 
-These criteria were defined up front (PRD-013 step 2). The verdict below is decided strictly
-against them.
+These criteria were defined up front. The conclusion below is decided strictly against them.
 
 | # | Criterion | Result |
 |---|-----------|--------|
@@ -31,7 +28,7 @@ against them.
 | (c) | `flowmcp-core` / `flowmcp-cli` provide Resource-Template support, OR the missing support is clearly named | ✅ named: support is **absent** (see evidence) |
 | (d) | An MCP client could consume the probe **without** falling back to the Tools path | ❌ not possible — nothing would emit/register a template |
 
-A single ❌ on (a), (b), or (d) is sufficient to fail the spike. Three of four fail; (c)
+A single ❌ on (a), (b), or (d) is sufficient to fail the study. Three of four fail; (c)
 is satisfied only in the sense that the gap is unambiguously identifiable.
 
 ---
@@ -79,7 +76,7 @@ All citations are from `repos/flowmcp-spec/spec/v4.3.0/`.
    as **Tools** by `src/adapters/FlowMcpAdapter.mjs` `buildToolDefinitions` (lines 46-81),
    which is exactly the current, correct behavior.
 
-### FACT
+### Summary of findings
 
 FlowMCP v4.3.0 does **not** define a Resource-Template primitive. It defines exactly two
 resource shapes — SQL-bound resources (`source: sqlite | http`, accessed via `queries` /
@@ -93,9 +90,9 @@ not be consumed by an MCP client as a resource template, because neither `flowmc
 
 ---
 
-## VERDICT
+## Conclusion
 
-**NICHT TRAGFÄHIG**
+**Not viable against the current spec.**
 
 The FlowMCP spec has no Resource-Template primitive (evidence 1–6). Criteria (a), (b), and
 (d) of the pre-fixed checklist fail; (c) is satisfied only as "the missing support is clearly
@@ -105,27 +102,27 @@ client-consumable emission.
 
 ---
 
-## Consequence (Fallback branch — PRD-013 Branch B)
+## Outcome
 
-- **kein Blocker, geparkt** — per Memo 100, Kap. 14 (Risiken): "Resources strukturell (F5):
-  ggf. parken." This spike strand ends without follow-up: it does not block the Memo 100
-  rollout.
+- This study ends without follow-up; it has no bearing on the current emission path.
 - The existing Tools emission `FlowMcpAdapter.buildToolDefinitions`
   (`src/adapters/FlowMcpAdapter.mjs:46-81`) is **left unchanged**. The GeoJSON default methods
   continue to be emitted as MCP Tools, which is the spec-conformant path (evidence 6, 7).
 - **No probe function was added** to `FlowMcpAdapter.mjs`. Because the spec offers no target
   primitive, a "Resource-Template descriptor" probe would only encode an invented, non-spec
   shape — it would be a research artifact with no client that could consume it, and it would
-  add surface area to a verified file for no productive gain. Per PRD-013 Branch B, the
-  probe is documented here as a research artifact rather than left as dead code.
-- **No change** to `flowmcp-spec`, `flowmcp-core`, or `flowmcp-cli` (PRD-013 Branch B
-  acceptance: diff in these three repos is empty).
+  add surface area to a verified file for no productive gain. The probe is documented here as
+  a research artifact rather than left as dead code.
+- **No change** to `flowmcp-spec`, `flowmcp-core`, or `flowmcp-cli` (the diff in these three
+  repos is empty).
 
-## If the spec evolves (out of scope for this PRD)
+## If the spec evolves (out of scope)
 
-Should a Resource-Template primitive ever be desired, it would require a **new follow-up
-Memo/PRD** spanning `flowmcp-spec` (a new `source`/primitive with a URI-template grammar and
+Should a Resource-Template primitive ever be desired, it would require new follow-up work
+spanning `flowmcp-spec` (a new `source`/primitive with a URI-template grammar and
 non-SQL parameter binding), plus `flowmcp-core` and `flowmcp-cli` emission/registration
 support, plus an MCP-client consumption test. That is explicitly **not** implemented or
-proposed-in-detail here, because the verdict is NICHT TRAGFÄHIG against the current spec —
+proposed-in-detail here, because the conclusion is "not viable" against the current spec —
 there is no incremental, additive change available within v4.3.0.
+</content>
+</invoke>
