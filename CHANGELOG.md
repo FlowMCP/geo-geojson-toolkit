@@ -15,10 +15,10 @@ First published release. URL in-memory architecture and geo-standard alignment.
 - `FlowMcpAdapter` for FlowMCP CLI integration.
 
 ### Changed
-- Rebuilt to **URL in-memory mode** (Memo 096) — no SQLite artifact, no file seal.
+- Rebuilt to **URL in-memory mode** — no SQLite artifact, no file seal.
 - Normalized lon-first **RFC-7946 FeatureCollection** output, aligned to the geo
-  add-on standard (Memo 100).
-- **Renamed repository** `geojson-sqlite-toolkit` → `geo-geojson-toolkit` (Memo 106).
+  add-on standard.
+- **Renamed repository** `geojson-sqlite-toolkit` → `geo-geojson-toolkit`.
   The old URL redirects; the npm package name is `geo-geojson-toolkit`.
 
 ### Fixed
