@@ -4,7 +4,7 @@
 
 Load GeoJSON FeatureCollections (RFC 7946) from a URL into memory and expose
 reusable spatial queries as FlowMCP auto-tools. The complete file is fetched in a
-single request, validated on load, and held in memory (Memo 096 URL model).
+single request, validated on load, and held in memory (URL in-memory model).
 
 GeoJSON is **self-describing** (RFC 7946: `FeatureCollection.features[]`,
 geometry as `[lon, lat]`, free-form `properties`), so — unlike a CSV add-on —
@@ -165,7 +165,7 @@ capability matrix:
 Tool names are prefixed with the schema namespace (e.g. `mygeo.nearPoint`). When
 a capability is missing, the corresponding tool is omitted.
 
-> **Spike note (Memo 100, PRD-013 / F5):** A spike investigated whether `nearPoint`
+> **Design note:** A feasibility study investigated whether `nearPoint`
 > could instead be emitted as an MCP **Resource Template** (parameterized resource URI).
 > Verdict: **NICHT TRAGFÄHIG** — FlowMCP v4.3.0 defines no Resource-Template primitive
 > (resources map to MCP `server.resource` and bind to SQL `?` placeholders only). The
@@ -201,7 +201,7 @@ export const schema = {
 Provider GeoJSON data is never shipped in this repository — the schema points at
 the provider's own HTTPS URL. There are no API keys, because there is no API.
 
-## Scope (Memo 090 K3)
+## Scope
 
 The add-on targets **complete, single-step-downloadable static GeoJSON** — one
 HTTPS request returns the whole FeatureCollection. Paginated or query-per-page
